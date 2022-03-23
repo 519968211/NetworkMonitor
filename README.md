@@ -1,1 +1,16 @@
 # NetworkMonitor
+
+这是一个类，用于在iOS上检测网络连接状态，使用Objective-C语言编写。
+
+基于RealReachability和AFNetworking的封装。
+
+RealReachability是一个模仿苹果Reachability的SDK，可用检测连上WIFI但WIFI不可上网的情况。
+
+RealReachability使用Reachability和PingHelper双重验证，由于ping在手机网络正常情况下仍有可能失败，导致PingHelper和RealReachability有时候错误判断手机无法访问Internet。
+
+RealReachability不同于Reachability，开始监听后不能回调当前网络状态，只有Internet访问能力发生改变时或连网方式发生改变时才能回调。
+
+NetworkMonitor在RealReachability的基础上加入HTTP请求，使用AFNetworking。
+    1. 在RealReachability变为无法访问Internet时，使用5秒超时的HTTP请求苹果官网首页，如果能请求到数据，网络正常，不能则无法访问Internet。修复RealReachability错误判断手机无法访问Internet的问题。
+    2. 在RealReachability开始监听的时候，使用一个失败则每5秒重试，超时直接重试的HTTP请求苹果官网首页，直到能访问时
+        判断手机能访问Internet。修复RealReachability启动时不能判断当前网络状态的问题。
