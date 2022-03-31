@@ -128,6 +128,8 @@
     NSNotificationQueue *queue = [NSNotificationQueue defaultQueue];
     NSNotification *notification = [NSNotification notificationWithName:NetworkMonitorInternetUnavailableNotification object:nil];
     [queue enqueueNotification:notification postingStyle:NSPostASAP];
+    
+    [self autoCheckPhoneNetwork];
 }
 
 - (void)setInternetConnectedYES
