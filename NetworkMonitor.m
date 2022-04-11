@@ -93,7 +93,6 @@
     [_afnManager GET:"https://www.apple.com" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [weakSelf.afnManager invalidateSessionCancelingTasks:YES resetSession:NO];
         weakSelf.internetConnected = YES;
-        [weakSelf checkHttpConnectionWhenRealStatusNotReachable];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [weakSelf.afnManager invalidateSessionCancelingTasks:YES resetSession:NO];
         [weakSelf internetUnavailable];
